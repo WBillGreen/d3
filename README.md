@@ -1,4 +1,4 @@
-# 3djs
+# 3d
 
 ## Project setup
 ```
