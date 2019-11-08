@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-
+        <h1>部署测试</h1>
     </div>
 </template>
 
@@ -8,24 +8,22 @@
 
     export default {
         name: 'app',
-        data(){
-            return{
-               options:[
-                   {
-                       label:'gong'
-                   }
-               ]
+        data() {
+            return {
+                options: [
+                    {
+                        label: 'gong'
+                    }
+                ]
             }
         },
-        methods:{
-
-        }
+        methods: {}
     }
 </script>
 
 <style>
 
-    .tree{
+    .tree {
 
     }
 </style>
