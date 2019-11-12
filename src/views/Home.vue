@@ -11,6 +11,7 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 // import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import moon from "../assets/bbb.jpg";
+import ddd from "../assets/aaa.jpg";
 
 let stats, renderer, scene, camera, directionalLight;
 export default {
@@ -88,10 +89,17 @@ export default {
               let material = new THREE.MeshBasicMaterial({ map: texture });
               let circle = new THREE.Mesh(geometry, material);
               circle.position.set(1000 - 50, 100 * i + 50, j * 100);
-
               group.add(circle);
             }
           }
+          scene.add(group);
+        },
+        xhr => {},
+        err => {}
+      );
+      loader.load(
+        ddd,
+        texture => {
           for (let i = 0; i < 10; i++) {
             for (let j = 0; j < 10; j++) {
               let geometry = new THREE.BoxBufferGeometry(10, 100, 100, 1, 2, 2);
