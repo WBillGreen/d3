@@ -10,6 +10,7 @@ import Stats from "three/examples/jsm/libs/stats.module";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 // import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
+import moon from "../assets/bbb.jpg";
 let stats, renderer, scene, camera, directionalLight;
 export default {
   name: "home",
@@ -25,7 +26,7 @@ export default {
       this.$refs.d3Wrap.appendChild(stats.dom);
 
       renderer = new THREE.WebGLRenderer({
-        alpha: true
+        alpha: true //透明背景色
       });
       renderer.setSize(this.width, this.height);
       this.$refs.d3Wrap.appendChild(renderer.domElement);
@@ -36,12 +37,12 @@ export default {
     },
     initCamera() {
       camera = new THREE.PerspectiveCamera(
-        30,
+        60,
         this.width / this.height,
-        0.1,
-        100
+        1,
+        10000
       );
-      camera.position.z = 100;
+      camera.position.z = 1000;
     },
     initLight() {
       directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
@@ -55,10 +56,24 @@ export default {
       scene.add(circle);
     },
     initCone() {
-        var geometry = new THREE.BoxBufferGeometry( 1, 1, 2,1,2,2 );
-        var material = new THREE.MeshBasicMaterial( {color: 0xffdd22} );
-        var cube = new THREE.Mesh( geometry, material );
-        scene.add( cube );
+      var loader = new THREE.TextureLoader();
+      /*材质 纹理加载器*/
+      loader.load(
+        moon,
+        texture => {
+          window.console.log(texture);
+          let geometry = new THREE.BoxBufferGeometry(100, 10, 100, 1, 2, 2);
+          let material = new THREE.MeshBasicMaterial({ map: texture });
+          let circle = new THREE.Mesh(geometry, material);
+          scene.add(circle);
+        },
+        xhr => {
+          window.console.log(xhr);
+        },
+        err => {
+          window.console.log(err);
+        }
+      );
     },
     render() {
       requestAnimationFrame(this.render);
