@@ -11,9 +11,10 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 // import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 // import { DRACOLoader } from "three/examples/jsm/loaders/DRACOLoader";
 import moon from "../assets/bbb.jpg";
+import earth from "../assets/earth.jpg";
 import ddd from "../assets/aaa.jpg";
 
-let stats, renderer, scene, camera, directionalLight;
+let stats, renderer, scene, camera, directionalLight, sphere, group;
 export default {
   name: "home",
   data() {
@@ -57,9 +58,10 @@ export default {
       let circle = new THREE.Mesh(geometry, material);
       scene.add(circle);
     },
+
     initCone() {
       let loader = new THREE.TextureLoader();
-      let group = new THREE.Group();
+      group = new THREE.Group();
       /*材质 纹理加载器*/
       loader.load(
         moon,
@@ -69,7 +71,8 @@ export default {
               let geometry = new THREE.BoxBufferGeometry(100, 10, 100, 1, 2, 2);
               let material = new THREE.MeshBasicMaterial({ map: texture });
               let circle = new THREE.Mesh(geometry, material);
-              circle.position.set(i * 100, 0, j * 100);
+              circle.position.set(1000, 1000, 10000);
+              circle.rotation.z = 15;
               group.add(circle);
             }
           }
@@ -111,7 +114,6 @@ export default {
                   (1100 - Math.sqrt((490 * 490) / 2)),
                 j * 100
               );
-              circle.rotation.z = -15;
               group.add(circle);
             }
           }
@@ -136,8 +138,32 @@ export default {
         err => {}
       );
     },
+    initEarth() {
+      let loader = new THREE.TextureLoader();
+      let group = new THREE.Group();
+      loader.load(
+        earth,
+        texture => {
+          var geometry = new THREE.SphereGeometry(100, 32, 32);
+          var material = new THREE.MeshBasicMaterial({ map: texture });
+          sphere = new THREE.Mesh(geometry, material);
+            // sphere.position.x = 400
+          // group.add(sphere);
+          // group.rotation.y += 100;
+          scene.add(sphere);
+        },
+        xhr => {
+          console.log(xhr);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    },
     render() {
       requestAnimationFrame(this.render);
+      scene.rotation.y-= 0.04;
+
       stats.update();
       renderer.render(scene, camera);
     }
@@ -147,8 +173,9 @@ export default {
     this.initCamera();
     this.initScene();
     this.initLight();
+      this.initEarth();
     // this.initCircle();
-    this.initCone();
+    // this.initCone();
     this.render();
   }
 };
