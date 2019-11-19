@@ -1,36 +1,28 @@
 <template>
   <div id="app">
-    <transition name="slide-fade">
-      <router-view></router-view>
-    </transition>
+    <router-view/>
   </div>
 </template>
 
-<script>
-// import Three from ''
-export default {
-  name: "app"
-};
-</script>
-
-<style>
-* {
-  margin: 0;
-  padding: 0;
-}
-/* 可以设置不同的进入和离开动画 */
-/* 设置持续时间和动画函数 */
-.slide-fade-enter-active {
-  transition: all 0.1s ease;
+<style lang="scss">
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
 }
 
-.slide-fade-leave-active {
-  transition: all 0.1s cubic-bezier(1, 0.5, 0.8, 1);
-}
+#nav {
+  padding: 30px;
 
-.slide-fade-enter,
-.slide-fade-leave-to {
-  transform: translateX(10px);
-  opacity: 0;
+  a {
+    font-weight: bold;
+    color: #2c3e50;
+
+    &.router-link-exact-active {
+      color: #42b983;
+    }
+  }
 }
 </style>
