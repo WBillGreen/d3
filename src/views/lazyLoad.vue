@@ -78,6 +78,7 @@
 <style scoped lang="scss">
     .container {
         .list {
+            display: flex;
             .item {
                 position: relative;
                 display: block;
